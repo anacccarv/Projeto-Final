@@ -1,0 +1,367 @@
+---
+title: "estatistica"
+---
+
+# Bibliotecas
+
+As seguintes bibliotecas foram carregadas para a análise dos dados:
+
+```{r}
+library(gsheet)
+library(tidyverse)
+library(car)
+library(DHARMa)
+library(performance)
+library(ggthemes)
+library(emmeans)
+library(multcomp)
+library(multcompView)
+```
+
+# Variável: Severidade
+
+## Importação dos dados
+
+Os mesmos dados utilizados na análise anterior foram importados e preparados para investigar a severidade da doença em tomates afetados por *A. solani* ao longo do tempo:
+
+```{r}
+dados <- gsheet2tbl("https://docs.google.com/spreadsheets/d/1HI1PqYYMyvwvLhMfAAs7eyA2zCqTBwQdyGtw-ILn7fU/edit?usp=sharing")
+
+tomate <- dados |> 
+  filter(host == "Tomato",
+         specie == "A. solani") |> 
+  mutate(time = as.numeric(time),
+         rep = as.factor(rep),
+         product = as.factor(product)) |> 
+  dplyr::select(ID, isolate, product, rep, time, sev, yield_f)
+
+tom28 <- tomate |> 
+  filter(time == 28)
+```
+
+## ANOVA
+
+Uma análise de variância (ANOVA) foi realizada para investigar a influência dos produtos e isolados na severidade final da doença aos 28 dias:
+
+```{r}
+anova <- lm(sev ~ product*isolate,
+            data = tom28)
+
+anova(anova)
+```
+
+### Verificação das Premissas
+
+Foram verificadas as premissas da ANOVA quanto à normalidade e homogeneidade de variâncias:
+
+```{r}
+check_normality(anova)
+check_heteroscedasticity(anova)
+
+plot(simulateResiduals(anova))
+
+hist(residuals(anova))
+```
+
+Como as premissas não foram atendidas, optou-se pela transformação dos dados.
+
+### Transformação Logarítmica
+
+Uma tentativa de transformação logarítmica foi realizada para atender às premissas da ANOVA:
+
+```{r}
+anova1 <- lm(log(sev) ~ product*isolate,
+            data = tom28)
+
+anova(anova1)
+```
+
+```{r}
+check_normality(anova1)
+check_heteroscedasticity(anova1)
+
+plot(simulateResiduals(anova1))
+
+hist(residuals(anova1))
+
+```
+
+A transformação logarítmica não fez com que os dados atendessem as premissas.
+
+### Transformação Logit
+
+Outra tentativa com transformação logit foi realizada para adequação aos pressupostos:
+
+```{r}
+tom_logit <- tom28 |> 
+  mutate(logit = logit(sev))
+
+
+anova2 <- lm(logit ~ product*isolate,
+            data = tom_logit)
+
+anova(anova2)
+```
+
+```{r}
+check_normality(anova1)
+check_heteroscedasticity(anova1)
+
+plot(simulateResiduals(anova2))
+
+hist(residuals(anova2))
+```
+
+Apesar das transformações, as premissas ainda não foram completamente atendidas. Contudo, utilizando o pacote DHARMa, as premissas foram consideradas aceitáveis para continuar a análise.
+
+## Teste de comparação de médias
+
+Dado que o isolado não foi significativo e a interação entre isolado e produto também não, foi realizado um teste de comparação de médias apenas para o produto:
+
+```{r}
+# emmeans
+medias_tom <- emmeans(anova2, ~ product)
+medias_tom
+
+#performance
+cld(medias_tom, Letters = LETTERS)
+```
+
+## Regressão linear
+
+### Visualização dos dados
+
+Para cada produto, foi visualizada a evolução da severidade da doença ao longo do tempo:
+
+```{r}
+tomate|> 
+  ggplot(aes(time, sev))+
+  geom_jitter(width = 0.05, color = "lightgrey")+
+  stat_summary(fun.data = "mean_cl_boot", size = 0.5, color = "black",
+               alpha = 0.5)+
+  geom_smooth(method = lm,
+              se = FALSE)+
+  facet_wrap(~product)
+```
+
+Regressao linear simples por produto:
+
+### Check
+
+```{r}
+check <- tomate |> 
+  dplyr::filter(product == "Check")
+
+check |> 
+ggplot(aes(time, sev))+
+  geom_point()+
+  stat_summary(fun.data = "mean_cl_boot", size = 0.5, color = "black",
+               alpha = 0.5)+
+  ylim(0,1)+
+  geom_smooth(method = lm,
+              se = FALSE)
+```
+
+Análise de regressão linear simples para o produto Check:
+
+```{r}
+lmc <- lm(sev ~time,
+          data = check)
+summary(lmc)
+
+AIC(lmc)
+```
+
+### Fungicida
+
+```{r}
+fungi <- tomate |> 
+  dplyr::filter(product == "Fungicide")
+
+fungi |> 
+ggplot(aes(time, sev))+
+  geom_point()+
+  stat_summary(fun.data = "mean_cl_boot", size = 0.5, color = "black",
+               alpha = 0.5)+
+  ylim(0,1)+
+  geom_smooth(method = lm,
+              se = FALSE)
+```
+
+Análise de regressão linear simples para o produto Fungicida:
+
+```{r}
+lmf <- lm(sev ~time,
+          data = fungi)
+summary(lmf)
+```
+
+### Bio agente A
+
+```{r}
+bioA <- tomate |> 
+  dplyr::filter(product == "Bio agent A")
+
+bioA |> 
+ggplot(aes(time, sev))+
+  geom_point()+
+  stat_summary(fun.data = "mean_cl_boot", size = 0.5, color = "black",
+               alpha = 0.5)+
+  ylim(0,1)+
+  geom_smooth(method = lm,
+              se = FALSE)
+```
+
+Análise de regressão linear simples para o produto Bio agent A:
+
+```{r}
+lma <- lm(sev ~time,
+          data = bioA)
+summary(lma)
+AIC(lma)
+```
+
+### Bio agente B
+
+```{r}
+bioB <- tomate |> 
+  dplyr::filter(product == "Bio agent B")
+
+bioB |> 
+ggplot(aes(time, sev))+
+  geom_point()+
+  stat_summary(fun.data = "mean_cl_boot", size = 0.5, color = "black",
+               alpha = 0.5)+
+  ylim(0,1)+
+  geom_smooth(method = lm,
+              se = FALSE)
+```
+
+Análise de regressão linear simples para o produto Bio agent B:
+
+```{r}
+lmb <- lm(sev ~time,
+          data = bioB)
+summary(lmb)
+AIC(lmb)
+```
+
+## Regressao linear quadrática por tratamento
+
+Para investigar possíveis efeitos não-lineares ao longo do tempo, foram ajustados modelos de regressão linear quadrática para cada tratamento:
+
+### Check
+
+```{r}
+check |> 
+  ggplot(aes(time, sev))+
+  geom_point()+
+  geom_smooth(method = "lm",
+              se = FALSE,
+              formula = y ~poly(x,2),
+              color = "black")+
+  geom_smooth(se = FALSE)
+```
+
+Análise de regressão linear quadrática para o produto Check:
+
+```{r}
+check$time2 <- check$time^2
+
+lm3 <- lm(sev ~time + time2,
+          data = check)
+summary(lm3)
+
+hist(residuals(lm3))
+
+AIC(lm3)
+```
+
+y = 0.01676 - 0.006392 x Time + 0.001142 x Time² (essa é a equação da regressão)
+
+### Fungicida
+
+```{r}
+fungi |> 
+  ggplot(aes(time, sev))+
+  geom_point()+
+  geom_smooth(method = "lm",
+              se = FALSE,
+              formula = y ~poly(x,2),
+              color = "black")+
+  geom_smooth(se = FALSE)
+```
+
+Análise de regressão linear quadrática para o produto Fungicida:
+
+```{r}
+fungi$time2 <- fungi$time^2
+
+qmf <- lm(sev ~time + time2,
+          data = fungi)
+summary(qmf)
+
+hist(residuals(qmf))
+
+AIC(qmf)
+```
+
+y = 0.01295 - 0.0001334 x Time + 0.00009552 x Time²
+
+### Bio agente A
+
+```{r}
+bioA |> 
+  ggplot(aes(time, sev))+
+  geom_point()+
+  geom_smooth(method = "lm",
+              se = FALSE,
+              formula = y ~poly(x,2),
+              color = "black")+
+  geom_smooth(se = FALSE)
+```
+
+Análise de regressão linear quadrática para o produto Bio agent A:
+
+```{r}
+bioA$time2 <- bioA$time^2
+
+qma <- lm(sev ~time + time2,
+          data = bioA)
+summary(qma)
+
+hist(residuals(qma))
+
+AIC(qma)
+```
+
+y = 0.01258 - 4.480e-7 x Time + 0.0000711 x Time²
+
+### Bio agente B
+
+```{r}
+bioB |> 
+  ggplot(aes(time, sev))+
+  geom_point()+
+  geom_smooth(method = "lm",
+              se = FALSE,
+              formula = y ~poly(x,2),
+              color = "black")+
+  geom_smooth(se = FALSE)
+```
+
+Análise de regressão linear quadrática para o produto Bio agent B:
+
+```{r}
+bioB$time2 <- bioB$time^2
+
+qmb <- lm(sev ~time + time2,
+          data = bioB)
+summary(qmb)
+
+hist(residuals(qmb))
+
+AIC(qmb)
+```
+
+y = 0.01672 - 0.002534 x Time + 0.0003541 x Time²
