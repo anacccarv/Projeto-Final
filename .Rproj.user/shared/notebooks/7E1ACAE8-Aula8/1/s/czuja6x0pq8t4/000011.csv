@@ -1,6 +1,0 @@
-"0","curve |> 
-  group_by(Irrigation, rep) |> 
-  summarise(aacpd = AUDPC(day, severity))
-"
-"1","[38;5;232m`summarise()` has grouped output by 'Irrigation'. You can override using the `.groups` argument.[39m
-"

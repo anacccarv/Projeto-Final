@@ -1,0 +1,18 @@
+"0","tomate|> "
+"0","  ggplot(aes(time, sev))+"
+"0","  geom_jitter(width = 0.05, color = ""lightgrey"")+"
+"0","  stat_summary(fun.data = ""mean_cl_boot"", size = 0.5, color = ""black"","
+"0","               alpha = 0.5)+"
+"0","  geom_smooth(method = lm,"
+"0","              se = FALSE)+"
+"0","  facet_wrap(~product)"
+"2","Registered S3 method overwritten by 'htmlwidgets':
+  method           from         
+  print.htmlwidget tools:rstudio
+"
+"2","Registered S3 method overwritten by 'data.table':
+  method           from
+  print.data.table     
+"
+"1","[38;5;232m`geom_smooth()` using formula = 'y ~ x'[39m
+"

@@ -1,0 +1,7 @@
+"0","check_normality(anova28)"
+"1","[32mOK: residuals appear as normally distributed (p = 0.701).
+[39m"
+"0","check_heteroscedasticity(anova28)"
+"1","[31mWarning: Heteroscedasticity (non-constant error variance) detected (p = 0.006).
+[39m"
+"0","plot(simulateResiduals(anova28))"

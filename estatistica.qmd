@@ -424,12 +424,66 @@ Estes resultados sugerem que "Fungicide" e "Bio agent A" são mais eficazes na r
 
 ## ANOVA
 
-## Regressão linear
+Uma análise de variância (ANOVA) foi realizada para investigar a influência dos produtos e isolados na produtividade final do cultivo aos 28 dias.
+
+```{r}
+anova28 <- lm(yield_f ~ product*isolate,
+            data = tom28)
+
+anova(anova28)
+```
+
+## Verificação das Premissas
+
+Foram verificadas as premissas da ANOVA quanto à normalidade e homogeneidade de variâncias:
+
+```{r}
+check_normality(anova28)
+check_heteroscedasticity(anova28)
+
+plot(simulateResiduals(anova28))
+
+hist(residuals(anova28))
+```
+
+As premissas foram atendidas, indicando que não é necessário transformar os dados.
+
+## Teste de comparação de médias
+
+Como o fator "product" foi identificado como significativo, realizamos um teste de comparação de médias para determinar os níveis de "product" que são significativamente diferentes entre si.
+
+```{r}
+# emmeans
+medias_tom28 <- emmeans(anova28, ~ product)
+medias_tom28
+
+#performance
+cld(medias_tom28, Letters = LETTERS)
+```
+
+Os resultados indicam que há uma diferença significativa entre os produtos Check, Bio agent B e Fungicide, enquanto o Bio agent A se encontra dentro dos grupos B e C.
 
 # Análise de correlação: Severidade x Produtividade
 
 ## Visualização da Correlação
+
 ### Gráfico de Dispersão com Regressão Linear
+
+Primeiro, apresentamos um gráfico de dispersão mostrando a relação entre a severidade da doença e a produtividade final, com uma linha de regressão linear ajustada:
+
+```{r}
+tom28 |> 
+  ggplot(aes(sev, yield_f))+
+  geom_point()+
+  geom_smooth(method = "lm")+
+  labs(x = "Severidade",
+       y = "Produtividade final")+
+  theme_clean()
+```
+### Gráfico de Dispersão com Regressão Linear por Produto
+
+Para entender melhor a correlação entre severidade e produtividade para cada produto, geramos gráficos de dispersão com linhas de regressão linear separadas por produto:
+
 ```{r}
 tom28 |> 
   ggplot(aes(sev, yield_f))+
@@ -442,6 +496,7 @@ tom28 |>
 ```
 
 ### Boxplot de Produtividade por Produto
+
 ```{r}
 tom28 |> 
   ggplot(aes(product, yield_f, color = product))+
@@ -458,6 +513,7 @@ A visualização inicial com o gráfico de dispersão sugere a presença de uma 
 ## Análise de Correlação
 
 ### Seleção das Variáveis de Interesse
+
 ```{r}
 tom28_2 <- tom28 |> 
   dplyr::select(sev, yield_f)
@@ -504,10 +560,3 @@ tom28_bioA <- tom28 |>
 # Teste de correlação para Bio agent A
 cor.test(tom28_bioA$yield_f, tom28_bioA$sev)
 ```
-
-
-
-
-
-
-

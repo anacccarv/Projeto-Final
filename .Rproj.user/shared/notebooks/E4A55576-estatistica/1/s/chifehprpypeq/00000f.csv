@@ -1,0 +1,13 @@
+"0","check_normality(anova)"
+"1","[31mWarning: Non-normality of residuals detected (p = 0.001).
+[39m"
+"0","check_heteroscedasticity(anova)"
+"1","[31mWarning: Heteroscedasticity (non-constant error variance) detected (p < .001).
+[39m"
+"0","plot(simulateResiduals(anova))"
+"2","Registered S3 methods overwritten by 'htmltools':
+  method               from         
+  print.html           tools:rstudio
+  print.shiny.tag      tools:rstudio
+  print.shiny.tag.list tools:rstudio
+"

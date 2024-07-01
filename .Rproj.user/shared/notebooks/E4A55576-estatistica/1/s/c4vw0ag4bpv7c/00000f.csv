@@ -1,0 +1,10 @@
+"0","tom28 |> "
+"0","  ggplot(aes(sev, yield_f))+"
+"0","  geom_point()+"
+"0","  geom_smooth(method = ""lm"")+"
+"0","  labs(x = ""Severidade"","
+"0","       y = ""Produtividade final"")+"
+"0","  facet_wrap(~product)+"
+"0","  theme_clean()"
+"1","[38;5;232m`geom_smooth()` using formula = 'y ~ x'[39m
+"

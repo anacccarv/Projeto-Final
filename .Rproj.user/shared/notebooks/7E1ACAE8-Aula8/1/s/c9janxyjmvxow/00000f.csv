@@ -1,4 +1,0 @@
-"0","curve |> "
-"0","  ggplot(aes(day, severity))+"
-"0","  geom_jitter()+"
-"0","  facet_wrap(~~Irrigation)"

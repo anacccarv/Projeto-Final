@@ -1,0 +1,8 @@
+"0","tom28 |> "
+"0","  ggplot(aes(product, yield_f, color = product))+"
+"0","  geom_boxplot()+"
+"0","  labs(x = ""Produto"","
+"0","       y = ""Produtividade final"","
+"0","       color = ""Produto"")+"
+"0","  theme_clean()+"
+"0","  theme(legend.position = ""top"")"
