@@ -16,6 +16,8 @@ library(ggthemes)
 library(emmeans)
 library(multcomp)
 library(multcompView)
+library(epifitter)
+library(AgroR)
 ```
 
 # Variável: Severidade
@@ -32,6 +34,9 @@ tomate <- dados |>
          specie == "A. solani") |> 
   mutate(time = as.numeric(time),
          rep = as.factor(rep),
+         isolate = as.factor(isolate),
+         sev = as.numeric(sev),
+         yield_f = as.numeric(yield_f),
          product = as.factor(product)) |> 
   dplyr::select(ID, isolate, product, rep, time, sev, yield_f)
 
@@ -104,8 +109,8 @@ anova(anova2)
 ```
 
 ```{r}
-check_normality(anova1)
-check_heteroscedasticity(anova1)
+check_normality(anova2)
+check_heteroscedasticity(anova2)
 
 plot(simulateResiduals(anova2))
 
@@ -365,3 +370,144 @@ AIC(qmb)
 ```
 
 y = 0.01672 - 0.002534 x Time + 0.0003541 x Time²
+
+## Análise da Área Abaixo da Curva de Progresso da Doença (AACPD)
+
+Para calcular a AACPD, os dados foram agrupados por produto, repetição e isolado, e a função `AUDPC` do pacote epifitter foi utilizada para calcular a área abaixo da curva de progresso da doença.
+
+```{r}
+tomate3 <- tomate |> 
+  group_by(product, rep, isolate) |> 
+  summarise(aacpd = AUDPC(time, sev))
+```
+
+Para visualizar a AACPD entre os diferentes produtos e isolados, um gráfico de boxplot foi criado:
+
+```{r}
+tomate3 |> 
+  ggplot(aes(product, aacpd, color = product)) +
+  geom_boxplot() +
+  scale_x_discrete(limits = c("Check", "Bio agent B", "Fungicide", "Bio agent A")) +
+  labs(x = "Produto",
+       y = "AACPD",
+       color = "Produto") +
+  theme_classic() +
+  theme(legend.position = "top")
+```
+
+Para analisar estatisticamente a variação na AACPD entre os diferentes produtos, realizamos uma ANOVA.
+
+```{r}
+m_tomate3 <- lm(aacpd ~ product, data = tomate3)
+
+anova(m_tomate3)
+```
+
+Os resultados indicam que há uma diferença estatisticamente significativa na AACPD entre os diferentes produtos (p \< 0.001).
+
+```{r}
+medias_tomate3 <- emmeans(m_tomate3, ~ product)
+cld(medias_tomate3, Letters = letters)
+```
+
+### Conclusões:
+
+-   O "Check" apresentou uma AACPD significativamente maior que os outros produtos, o que indica uma maior severidade da doença.
+
+-   "Bio agent A" e "Fungicide" não diferem significativamente entre si, mas ambos têm uma AACPD significativamente menor que o "Bio agent B" e "Check".
+
+-   "Bio agent B" tem uma AACPD significativamente menor que o "Check", mas maior que "Bio agent A" e "Fungicide".
+
+Estes resultados sugerem que "Fungicide" e "Bio agent A" são mais eficazes na redução da severidade da doença em comparação ao "Check" e "Bio agent B".
+
+# Variável: Produtividade
+
+## ANOVA
+
+## Regressão linear
+
+# Análise de correlação: Severidade x Produtividade
+
+## Visualização da Correlação
+### Gráfico de Dispersão com Regressão Linear
+```{r}
+tom28 |> 
+  ggplot(aes(sev, yield_f))+
+  geom_point()+
+  geom_smooth(method = "lm")+
+  labs(x = "Severidade",
+       y = "Produtividade final")+
+  facet_wrap(~product)+
+  theme_clean()
+```
+
+### Boxplot de Produtividade por Produto
+```{r}
+tom28 |> 
+  ggplot(aes(product, yield_f, color = product))+
+  geom_boxplot()+
+  labs(x = "Produto",
+       y = "Produtividade final",
+       color = "Produto")+
+  theme_clean()+
+  theme(legend.position = "top")
+```
+
+A visualização inicial com o gráfico de dispersão sugere a presença de uma correlação.
+
+## Análise de Correlação
+
+### Seleção das Variáveis de Interesse
+```{r}
+tom28_2 <- tom28 |> 
+  dplyr::select(sev, yield_f)
+```
+
+### Gráfico de Correlação
+
+```{r}
+corgraph(tom28_2)
+```
+
+### Teste de Correlação
+
+```{r}
+cor.test(tom28_2$yield_f, tom28_2$sev)
+```
+
+## Análise de Correlação por Produto
+
+### Produto: Check
+
+```{r}
+tom28_check <- tom28 |> 
+  filter(product == "Check") |> 
+  dplyr::select(sev, yield_f)
+  
+# Gráfico de correlação para Check
+corgraph(tom28_check)
+
+# Teste de correlação para Check
+cor.test(tom28_check$yield_f, tom28_check$sev)
+```
+
+### Produto: Bio agent A
+
+```{r}
+tom28_bioA <- tom28 |> 
+  filter(product == "Bio agent A") |> 
+  dplyr::select(sev, yield_f)
+
+# Gráfico de correlação para Bio agent A
+  corgraph(tom28_bioA)
+  
+# Teste de correlação para Bio agent A
+cor.test(tom28_bioA$yield_f, tom28_bioA$sev)
+```
+
+
+
+
+
+
+

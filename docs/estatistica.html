@@ -197,6 +197,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#bio-agente-a-1" id="toc-bio-agente-a-1" class="nav-link" data-scroll-target="#bio-agente-a-1">Bio agente A</a></li>
   <li><a href="#bio-agente-b-1" id="toc-bio-agente-b-1" class="nav-link" data-scroll-target="#bio-agente-b-1">Bio agente B</a></li>
   </ul></li>
+  <li><a href="#análise-da-área-abaixo-da-curva-de-progresso-da-doença-aacpd" id="toc-análise-da-área-abaixo-da-curva-de-progresso-da-doença-aacpd" class="nav-link" data-scroll-target="#análise-da-área-abaixo-da-curva-de-progresso-da-doença-aacpd">Análise da Área Abaixo da Curva de Progresso da Doença (AACPD)</a>
+  <ul class="collapse">
+  <li><a href="#conclusões" id="toc-conclusões" class="nav-link" data-scroll-target="#conclusões">Conclusões:</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#variável-produtividade" id="toc-variável-produtividade" class="nav-link" data-scroll-target="#variável-produtividade">Variável: Produtividade</a>
+  <ul class="collapse">
+  <li><a href="#anova-1" id="toc-anova-1" class="nav-link" data-scroll-target="#anova-1">ANOVA</a></li>
+  <li><a href="#regressão-linear-1" id="toc-regressão-linear-1" class="nav-link" data-scroll-target="#regressão-linear-1">Regressão linear</a></li>
+  </ul></li>
+  <li><a href="#análise-de-correlação-severidade-x-produtividade" id="toc-análise-de-correlação-severidade-x-produtividade" class="nav-link" data-scroll-target="#análise-de-correlação-severidade-x-produtividade">Análise de correlação: Severidade x Produtividade</a>
+  <ul class="collapse">
+  <li><a href="#visualização-da-correlação" id="toc-visualização-da-correlação" class="nav-link" data-scroll-target="#visualização-da-correlação">Visualização da Correlação</a>
+  <ul class="collapse">
+  <li><a href="#gráfico-de-dispersão-com-regressão-linear" id="toc-gráfico-de-dispersão-com-regressão-linear" class="nav-link" data-scroll-target="#gráfico-de-dispersão-com-regressão-linear">Gráfico de Dispersão com Regressão Linear</a></li>
+  <li><a href="#boxplot-de-produtividade-por-produto" id="toc-boxplot-de-produtividade-por-produto" class="nav-link" data-scroll-target="#boxplot-de-produtividade-por-produto">Boxplot de Produtividade por Produto</a></li>
+  </ul></li>
+  <li><a href="#análise-de-correlação" id="toc-análise-de-correlação" class="nav-link" data-scroll-target="#análise-de-correlação">Análise de Correlação</a>
+  <ul class="collapse">
+  <li><a href="#seleção-das-variáveis-de-interesse" id="toc-seleção-das-variáveis-de-interesse" class="nav-link" data-scroll-target="#seleção-das-variáveis-de-interesse">Seleção das Variáveis de Interesse</a></li>
+  <li><a href="#gráfico-de-correlação" id="toc-gráfico-de-correlação" class="nav-link" data-scroll-target="#gráfico-de-correlação">Gráfico de Correlação</a></li>
+  <li><a href="#teste-de-correlação" id="toc-teste-de-correlação" class="nav-link" data-scroll-target="#teste-de-correlação">Teste de Correlação</a></li>
+  </ul></li>
+  <li><a href="#análise-de-correlação-por-produto" id="toc-análise-de-correlação-por-produto" class="nav-link" data-scroll-target="#análise-de-correlação-por-produto">Análise de Correlação por Produto</a>
+  <ul class="collapse">
+  <li><a href="#produto-check" id="toc-produto-check" class="nav-link" data-scroll-target="#produto-check">Produto: Check</a></li>
+  <li><a href="#produto-bio-agent-a" id="toc-produto-bio-agent-a" class="nav-link" data-scroll-target="#produto-bio-agent-a">Produto: Bio agent A</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -235,7 +263,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggthemes)</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(multcomp)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(multcompView)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(multcompView)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(epifitter)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AgroR)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="variável-severidade" class="level1">
@@ -251,11 +281,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>         specie <span class="sc">==</span> <span class="st">"A. solani"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">time =</span> <span class="fu">as.numeric</span>(time),</span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">rep =</span> <span class="fu">as.factor</span>(rep),</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">product =</span> <span class="fu">as.factor</span>(product)) <span class="sc">|&gt;</span> </span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(ID, isolate, product, rep, time, sev, yield_f)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>tom28 <span class="ot">&lt;-</span> tomate <span class="sc">|&gt;</span> </span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(time <span class="sc">==</span> <span class="dv">28</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">isolate =</span> <span class="fu">as.factor</span>(isolate),</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">sev =</span> <span class="fu">as.numeric</span>(sev),</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">yield_f =</span> <span class="fu">as.numeric</span>(yield_f),</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">product =</span> <span class="fu">as.factor</span>(product)) <span class="sc">|&gt;</span> </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(ID, isolate, product, rep, time, sev, yield_f)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>tom28 <span class="ot">&lt;-</span> tomate <span class="sc">|&gt;</span> </span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(time <span class="sc">==</span> <span class="dv">28</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="anova" class="level2">
@@ -385,13 +418,13 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check_normality</span>(anova1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check_normality</span>(anova2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Warning: Non-normality of residuals detected (p &lt; .001).</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check_heteroscedasticity</span>(anova1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check_heteroscedasticity</span>(anova2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Warning: Heteroscedasticity (non-constant error variance) detected (p &lt; .001).</code></pre>
+<pre><code>OK: Error variance appears to be homoscedastic (p = 0.068).</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">simulateResiduals</span>(anova2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -932,6 +965,257 @@ F-statistic: 474.4 on 2 and 237 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <p>y = 0.01672 - 0.002534 x Time + 0.0003541 x Time²</p>
+</section>
+</section>
+<section id="análise-da-área-abaixo-da-curva-de-progresso-da-doença-aacpd" class="level2">
+<h2 class="anchored" data-anchor-id="análise-da-área-abaixo-da-curva-de-progresso-da-doença-aacpd">Análise da Área Abaixo da Curva de Progresso da Doença (AACPD)</h2>
+<p>Para calcular a AACPD, os dados foram agrupados por produto, repetição e isolado, e a função <code>AUDPC</code> do pacote epifitter foi utilizada para calcular a área abaixo da curva de progresso da doença.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>tomate3 <span class="ot">&lt;-</span> tomate <span class="sc">|&gt;</span> </span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(product, rep, isolate) <span class="sc">|&gt;</span> </span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">aacpd =</span> <span class="fu">AUDPC</span>(time, sev))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Para visualizar a AACPD entre os diferentes produtos e isolados, um gráfico de boxplot foi criado:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>tomate3 <span class="sc">|&gt;</span> </span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(product, aacpd, <span class="at">color =</span> product)) <span class="sc">+</span></span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="st">"Check"</span>, <span class="st">"Bio agent B"</span>, <span class="st">"Fungicide"</span>, <span class="st">"Bio agent A"</span>)) <span class="sc">+</span></span>
+<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Produto"</span>,</span>
+<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"AACPD"</span>,</span>
+<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Produto"</span>) <span class="sc">+</span></span>
+<span id="cb75-8"><a href="#cb75-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb75-9"><a href="#cb75-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="estatistica_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Para analisar estatisticamente a variação na AACPD entre os diferentes produtos, realizamos uma ANOVA.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>m_tomate3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(aacpd <span class="sc">~</span> product, <span class="at">data =</span> tomate3)</span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(m_tomate3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Response: aacpd
+           Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+product     3 614.67 204.891  2137.8 &lt; 2.2e-16 ***
+Residuals 116  11.12   0.096                      
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>Os resultados indicam que há uma diferença estatisticamente significativa na AACPD entre os diferentes produtos (p &lt; 0.001).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>medias_tomate3 <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(m_tomate3, <span class="sc">~</span> product)</span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cld</span>(medias_tomate3, <span class="at">Letters =</span> letters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> product     emmean     SE  df lower.CL upper.CL .group
+ Bio agent A  0.875 0.0565 116    0.763    0.987  a    
+ Fungicide    1.013 0.0565 116    0.901    1.125  a    
+ Bio agent B  2.092 0.0565 116    1.980    2.204   b   
+ Check        6.439 0.0565 116    6.327    6.551    c  
+
+Confidence level used: 0.95 
+P value adjustment: tukey method for comparing a family of 4 estimates 
+significance level used: alpha = 0.05 
+NOTE: If two or more means share the same grouping symbol,
+      then we cannot show them to be different.
+      But we also did not show them to be the same. </code></pre>
+</div>
+</div>
+<section id="conclusões" class="level3">
+<h3 class="anchored" data-anchor-id="conclusões">Conclusões:</h3>
+<ul>
+<li><p>O “Check” apresentou uma AACPD significativamente maior que os outros produtos, o que indica uma maior severidade da doença.</p></li>
+<li><p>“Bio agent A” e “Fungicide” não diferem significativamente entre si, mas ambos têm uma AACPD significativamente menor que o “Bio agent B” e “Check”.</p></li>
+<li><p>“Bio agent B” tem uma AACPD significativamente menor que o “Check”, mas maior que “Bio agent A” e “Fungicide”.</p></li>
+</ul>
+<p>Estes resultados sugerem que “Fungicide” e “Bio agent A” são mais eficazes na redução da severidade da doença em comparação ao “Check” e “Bio agent B”.</p>
+</section>
+</section>
+</section>
+<section id="variável-produtividade" class="level1">
+<h1>Variável: Produtividade</h1>
+<section id="anova-1" class="level2">
+<h2 class="anchored" data-anchor-id="anova-1">ANOVA</h2>
+</section>
+<section id="regressão-linear-1" class="level2">
+<h2 class="anchored" data-anchor-id="regressão-linear-1">Regressão linear</h2>
+</section>
+</section>
+<section id="análise-de-correlação-severidade-x-produtividade" class="level1">
+<h1>Análise de correlação: Severidade x Produtividade</h1>
+<section id="visualização-da-correlação" class="level2">
+<h2 class="anchored" data-anchor-id="visualização-da-correlação">Visualização da Correlação</h2>
+<section id="gráfico-de-dispersão-com-regressão-linear" class="level3">
+<h3 class="anchored" data-anchor-id="gráfico-de-dispersão-com-regressão-linear">Gráfico de Dispersão com Regressão Linear</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>tom28 <span class="sc">|&gt;</span> </span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(sev, yield_f))<span class="sc">+</span></span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)<span class="sc">+</span></span>
+<span id="cb80-5"><a href="#cb80-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Severidade"</span>,</span>
+<span id="cb80-6"><a href="#cb80-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Produtividade final"</span>)<span class="sc">+</span></span>
+<span id="cb80-7"><a href="#cb80-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>product)<span class="sc">+</span></span>
+<span id="cb80-8"><a href="#cb80-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_clean</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="estatistica_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="boxplot-de-produtividade-por-produto" class="level3">
+<h3 class="anchored" data-anchor-id="boxplot-de-produtividade-por-produto">Boxplot de Produtividade por Produto</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>tom28 <span class="sc">|&gt;</span> </span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(product, yield_f, <span class="at">color =</span> product))<span class="sc">+</span></span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()<span class="sc">+</span></span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Produto"</span>,</span>
+<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Produtividade final"</span>,</span>
+<span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Produto"</span>)<span class="sc">+</span></span>
+<span id="cb81-7"><a href="#cb81-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_clean</span>()<span class="sc">+</span></span>
+<span id="cb81-8"><a href="#cb81-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="estatistica_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>A visualização inicial com o gráfico de dispersão sugere a presença de uma correlação.</p>
+</section>
+</section>
+<section id="análise-de-correlação" class="level2">
+<h2 class="anchored" data-anchor-id="análise-de-correlação">Análise de Correlação</h2>
+<section id="seleção-das-variáveis-de-interesse" class="level3">
+<h3 class="anchored" data-anchor-id="seleção-das-variáveis-de-interesse">Seleção das Variáveis de Interesse</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>tom28_2 <span class="ot">&lt;-</span> tom28 <span class="sc">|&gt;</span> </span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(sev, yield_f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="gráfico-de-correlação" class="level3">
+<h3 class="anchored" data-anchor-id="gráfico-de-correlação">Gráfico de Correlação</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">corgraph</span>(tom28_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Var1 Var2        cor            p
+2 yield_f  sev -0.7914031 5.522227e-27</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="estatistica_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="teste-de-correlação" class="level3">
+<h3 class="anchored" data-anchor-id="teste-de-correlação">Teste de Correlação</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(tom28_2<span class="sc">$</span>yield_f, tom28_2<span class="sc">$</span>sev)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  tom28_2$yield_f and tom28_2$sev
+t = -14.063, df = 118, p-value &lt; 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.8500614 -0.7133524
+sample estimates:
+       cor 
+-0.7914031 </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="análise-de-correlação-por-produto" class="level2">
+<h2 class="anchored" data-anchor-id="análise-de-correlação-por-produto">Análise de Correlação por Produto</h2>
+<section id="produto-check" class="level3">
+<h3 class="anchored" data-anchor-id="produto-check">Produto: Check</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>tom28_check <span class="ot">&lt;-</span> tom28 <span class="sc">|&gt;</span> </span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(product <span class="sc">==</span> <span class="st">"Check"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(sev, yield_f)</span>
+<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico de correlação para Check</span></span>
+<span id="cb87-6"><a href="#cb87-6" aria-hidden="true" tabindex="-1"></a><span class="fu">corgraph</span>(tom28_check)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Var1 Var2        cor            p
+2 yield_f  sev -0.6272179 0.0002077558</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="estatistica_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Teste de correlação para Check</span></span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(tom28_check<span class="sc">$</span>yield_f, tom28_check<span class="sc">$</span>sev)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  tom28_check$yield_f and tom28_check$sev
+t = -4.2613, df = 28, p-value = 0.0002078
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.8054759 -0.3448804
+sample estimates:
+       cor 
+-0.6272179 </code></pre>
+</div>
+</div>
+</section>
+<section id="produto-bio-agent-a" class="level3">
+<h3 class="anchored" data-anchor-id="produto-bio-agent-a">Produto: Bio agent A</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>tom28_bioA <span class="ot">&lt;-</span> tom28 <span class="sc">|&gt;</span> </span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(product <span class="sc">==</span> <span class="st">"Bio agent A"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(sev, yield_f)</span>
+<span id="cb91-4"><a href="#cb91-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-5"><a href="#cb91-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico de correlação para Bio agent A</span></span>
+<span id="cb91-6"><a href="#cb91-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">corgraph</span>(tom28_bioA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Var1 Var2        cor         p
+2 yield_f  sev -0.1498767 0.4292317</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="estatistica_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Teste de correlação para Bio agent A</span></span>
+<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(tom28_bioA<span class="sc">$</span>yield_f, tom28_bioA<span class="sc">$</span>sev)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  tom28_bioA$yield_f and tom28_bioA$sev
+t = -0.80213, df = 28, p-value = 0.4292
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.4840113  0.2224013
+sample estimates:
+       cor 
+-0.1498767 </code></pre>
+</div>
+</div>
 
 
 </section>

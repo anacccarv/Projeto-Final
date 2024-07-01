@@ -50,7 +50,9 @@ Este conjunto de dados será utilizado para as análises subsequentes.
 ## Gráficos de Dispersão e Resumo Estatístico
 
 ### Severidade da Doença por Produto e Isolado
+
 Foi criado um gráfico de dispersão para visualizar a relação entre a severidade da doença, os produtos utilizados e os isolados do patógeno. As observações são distribuídas de acordo com os diferentes produtos e isolados. O eixo y foi formatado para exibir os valores em porcentagem:
+
 ```{r}
 tomate |> 
 ggplot(aes(product, sev, color = isolate))+
@@ -65,7 +67,9 @@ ggplot(aes(product, sev, color = isolate))+
 ```
 
 ### Severidade da Doença por Produto e Isolado
+
 Um segundo gráfico de dispersão foi criado para visualizar a relação entre a severidade da doença, os isolados e os produtos, com as observações faceteadas pelo tempo:
+
 ```{r}
 tomate |> 
 ggplot(aes(isolate, sev, color = product))+
@@ -77,7 +81,9 @@ ggplot(aes(isolate, sev, color = product))+
     color = "Produto" )+
   theme_clean()
 ```
+
 ### Evolução da Severidade ao Longo do Tempo
+
 Para observar a evolução da severidade da doença ao longo do tempo, foi criado um gráfico de pontos com uma linha de suavização para visualizar a tendência geral da severidade da doença. , além de pontos médios representando a média da severidade em cada período de avaliação. As barras de erro são utilizadas para indicar a variabilidade, representando o desvio padrão da severidade para cada ponto médio:
 
 ```{r}
@@ -105,8 +111,11 @@ tomate |>
   theme_clean()
   
 ```
+
 ### Resumo dos Dados Agrupados por Produto e Tempo
+
 Os dados foram agrupados por produto e tempo, e a média da severidade da doença foi calculada para cada grupo. Este resumo foi então plotado para visualizar a evolução da severidade ao longo do tempo para cada produto:
+
 ```{r}
 tomate |>
   group_by(product, time) |>
@@ -124,7 +133,8 @@ tomate |>
                 width = 0.1) +
   theme_classic() +
   labs( x = "Tempo",
-        y = "Severidade (%)")+
+        y = "Severidade (%)",
+        color = "Produto")+
   facet_wrap(~time, ncol = 2)+
  theme(legend.position = "top")
 ```
@@ -132,3 +142,50 @@ tomate |>
 A partir da análise exploratória dos dados, observamos variações na severidade da doença entre os diferentes produtos ao longo do tempo. No entanto, não foram observadas diferenças significativas visualmente na severidade da doença entre os isolados do patógeno. Essas visualizações fornecem insights iniciais sobre a eficácia dos produtos testados, os quais serão explorados em análises mais detalhadas subsequentes quanto à sua interação com os isolados do patógeno.
 
 # Produtividade
+
+## Filtragem dos dados
+
+Os dados foram filtrados para incluir apenas informações do dia 28, considerando a produtividade final dos tomates.
+
+```{r}
+tomate2 <- tomate |> 
+  filter(time == 28)
+```
+
+## Visualização dos dados
+
+Para visualizar a produtividade com os diferentes produtos utilizados:
+
+```{r}
+tomate2 |> 
+  ggplot(aes(product, yield_f, color = product))+
+  geom_boxplot()+
+  scale_x_discrete(limits = c("Check", "Bio agent B", "Fungicide", "Bio agent A"))+
+  labs(x = "Produto",
+       y = "Produtividade (kg/ha)",
+       color = "Isolado" )+
+  theme_classic()+
+  theme(legend.position = "top")
+```
+
+Para um resumo visual da produtividade média por produto:
+
+```{r}
+tomate2 |>
+  group_by(product, time) |> 
+  summarise(yld_mean = mean(yield_f),
+            yld_se = sd(sev)) |>
+  ggplot(aes(product, yld_mean, color = product)) +
+  geom_point(size = 3) +
+  geom_errorbar(aes(ymin = yld_mean - yld_se,
+                    ymax = yld_mean + yld_se),
+                width = 0.1) +
+  theme_classic() +
+  labs( x = "Produto",
+       y = "Produtividade (kg/ha)",
+       color = "Isolado")+
+   scale_x_discrete(limits = c("Check", "Bio agent B", "Fungicide", "Bio agent A"))+
+ theme(legend.position = "top")
+```
+
+Observamos uma variação na produtividade entre os diferentes produtos testados (Check, Bio agent B, Fungicide, Bio agent A). O produto Fungicide parece apresentar uma produtividade média mais alta em comparação aos demais, enquanto Check mostrou a menor produtividade média, como esperado. Esses resultados fornecem insights iniciais sobre o desempenho dos produtos testados, mas análises mais detalhadas, incluindo testes estatísticos específicos para comparações entre os produtos, podem oferecer uma compreensão mais robusta das diferenças observadas.
