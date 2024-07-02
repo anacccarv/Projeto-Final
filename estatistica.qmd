@@ -253,7 +253,7 @@ AIC(lmb)
 
 ## Regressão quadrática por tratamento
 
-Para investigar possíveis efeitos não-lineares ao longo do tempo, foram ajustados modelos de regressão linear quadrática para cada tratamento:
+Para investigar possíveis efeitos não-lineares ao longo do tempo, foram ajustados modelos de regressão quadrática para cada tratamento:
 
 ### Check
 
@@ -268,7 +268,7 @@ check |>
   geom_smooth(se = FALSE)
 ```
 
-Análise de regressão linear quadrática para o produto Check:
+Análise de regressão quadrática para o produto Check:
 
 ```{r}
 check$time2 <- check$time^2
@@ -297,7 +297,7 @@ fungi |>
   geom_smooth(se = FALSE)
 ```
 
-Análise de regressão linear quadrática para o produto Fungicida:
+Análise de regressão quadrática para o produto Fungicida:
 
 ```{r}
 fungi$time2 <- fungi$time^2
@@ -326,7 +326,7 @@ bioA |>
   geom_smooth(se = FALSE)
 ```
 
-Análise de regressão linear quadrática para o produto Bio agent A:
+Análise de regressão quadrática para o produto Bio agent A:
 
 ```{r}
 bioA$time2 <- bioA$time^2
@@ -355,7 +355,7 @@ bioB |>
   geom_smooth(se = FALSE)
 ```
 
-Análise de regressão linear quadrática para o produto Bio agent B:
+Análise de regressão quadrática para o produto Bio agent B:
 
 ```{r}
 bioB$time2 <- bioB$time^2

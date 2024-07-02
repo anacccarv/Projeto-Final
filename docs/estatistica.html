@@ -716,7 +716,7 @@ F-statistic: 548.5 on 1 and 238 DF,  p-value: &lt; 2.2e-16</code></pre>
 </section>
 <section id="regressão-quadrática-por-tratamento" class="level2">
 <h2 class="anchored" data-anchor-id="regressão-quadrática-por-tratamento">Regressão quadrática por tratamento</h2>
-<p>Para investigar possíveis efeitos não-lineares ao longo do tempo, foram ajustados modelos de regressão linear quadrática para cada tratamento:</p>
+<p>Para investigar possíveis efeitos não-lineares ao longo do tempo, foram ajustados modelos de regressão quadrática para cada tratamento:</p>
 <section id="check-1" class="level3">
 <h3 class="anchored" data-anchor-id="check-1">Check</h3>
 <div class="cell">
@@ -736,7 +736,7 @@ F-statistic: 548.5 on 1 and 238 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 </div>
-<p>Análise de regressão linear quadrática para o produto Check:</p>
+<p>Análise de regressão quadrática para o produto Check:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>check<span class="sc">$</span>time2 <span class="ot">&lt;-</span> check<span class="sc">$</span>time<span class="sc">^</span><span class="dv">2</span></span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -798,7 +798,7 @@ F-statistic:  2459 on 2 and 237 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 </div>
-<p>Análise de regressão linear quadrática para o produto Fungicida:</p>
+<p>Análise de regressão quadrática para o produto Fungicida:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>fungi<span class="sc">$</span>time2 <span class="ot">&lt;-</span> fungi<span class="sc">$</span>time<span class="sc">^</span><span class="dv">2</span></span>
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -860,7 +860,7 @@ F-statistic: 302.7 on 2 and 237 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 </div>
-<p>Análise de regressão linear quadrática para o produto Bio agent A:</p>
+<p>Análise de regressão quadrática para o produto Bio agent A:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>bioA<span class="sc">$</span>time2 <span class="ot">&lt;-</span> bioA<span class="sc">$</span>time<span class="sc">^</span><span class="dv">2</span></span>
 <span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -922,7 +922,7 @@ F-statistic: 312.2 on 2 and 237 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 </div>
-<p>Análise de regressão linear quadrática para o produto Bio agent B:</p>
+<p>Análise de regressão quadrática para o produto Bio agent B:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>bioB<span class="sc">$</span>time2 <span class="ot">&lt;-</span> bioB<span class="sc">$</span>time<span class="sc">^</span><span class="dv">2</span></span>
 <span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a></span>
