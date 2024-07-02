@@ -1,0 +1,18 @@
+"0","tomate |>
+  group_by(product, time) |> 
+  summarise(sev_mean = mean(sev),
+            sev_sd = sd(sev)) |>
+  ggplot(aes(product, sev_mean, color = product)) +
+  geom_point(size = 1.5) +
+  geom_errorbar(aes(ymin = sev_mean - sev_sd,
+                    ymax = sev_mean + sev_sd),
+                width = 0.1) +
+  theme_classic() +
+  labs( x = ""Tempo"",
+        y = ""Severidade (%)"",
+        color = ""Produto"")+
+  facet_wrap(~time, ncol = 2)+
+ theme(legend.position = ""top"")
+"
+"1","[38;5;232m`summarise()` has grouped output by 'product'. You can override using the `.groups` argument.[39m
+"

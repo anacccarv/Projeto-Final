@@ -410,13 +410,7 @@ medias_tomate3 <- emmeans(m_tomate3, ~ product)
 cld(medias_tomate3, Letters = letters)
 ```
 
-### Conclusões:
-
--   O "Check" apresentou uma AACPD significativamente maior que os outros produtos, o que indica uma maior severidade da doença.
-
--   "Bio agent A" e "Fungicide" não diferem significativamente entre si, mas ambos têm uma AACPD significativamente menor que o "Bio agent B" e "Check".
-
--   "Bio agent B" tem uma AACPD significativamente menor que o "Check", mas maior que "Bio agent A" e "Fungicide".
+## Conclusões:
 
 Estes resultados sugerem que "Fungicide" e "Bio agent A" são mais eficazes na redução da severidade da doença em comparação ao "Check" e "Bio agent B".
 

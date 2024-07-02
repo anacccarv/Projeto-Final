@@ -1,6 +1,0 @@
-"0","tom28_check <- tom28 |> "
-"0","  filter(product == ""Check"") |> "
-"0","  dplyr::select(sev, yield_f)"
-"0","  "
-"0","# Gráfico de correlação para Check"
-"0","corgraph(tom28_check)"

@@ -1,0 +1,2 @@
+"0","dados <- gsheet2tbl(""https://docs.google.com/spreadsheets/d/1HI1PqYYMyvwvLhMfAAs7eyA2zCqTBwQdyGtw-ILn7fU/edit?usp=sharing"")"
+"0","dados"

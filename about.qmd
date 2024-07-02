@@ -65,7 +65,8 @@ ggplot(aes(product, sev, color = isolate))+
   labs(x = "Produto",
        y = "Severidade (%)",
        color = "Isolado" )+
-  theme_clean()
+  theme_clean()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
 ### Severidade da Doença por Produto e Isolado
@@ -127,11 +128,11 @@ tomate |>
 tomate |>
   group_by(product, time) |> 
   summarise(sev_mean = mean(sev),
-            sev_se = sd(sev)) |>
+            sev_sd = sd(sev)) |>
   ggplot(aes(product, sev_mean, color = product)) +
-  geom_point(size = 3) +
-  geom_errorbar(aes(ymin = sev_mean - sev_se,
-                    ymax = sev_mean + sev_se),
+  geom_point(size = 1.5) +
+  geom_errorbar(aes(ymin = sev_mean - sev_sd,
+                    ymax = sev_mean + sev_sd),
                 width = 0.1) +
   theme_classic() +
   labs( x = "Tempo",
@@ -176,11 +177,11 @@ Para um resumo visual do rendimento médio por produto:
 tomate2 |>
   group_by(product, time) |> 
   summarise(yld_mean = mean(yield_f),
-            yld_se = sd(yield_f)) |>
+            yld_sd = sd(yield_f)) |>
   ggplot(aes(product, yld_mean, color = product)) +
   geom_point(size = 3) +
-  geom_errorbar(aes(ymin = yld_mean - yld_se,
-                    ymax = yld_mean + yld_se),
+  geom_errorbar(aes(ymin = yld_mean - yld_sd,
+                    ymax = yld_mean + yld_sd),
                 width = 0.1) +
   theme_classic() +
   labs( x = "Produto",
@@ -190,4 +191,4 @@ tomate2 |>
  theme(legend.position = "top")
 ```
 
-Observamos uma variação no rendimento entre os diferentes produtos testados (Check, Bio agent B, Fungicide, Bio agent A). O produto Fungicide parece apresentar um rendimento médio mais alta em comparação aos demais, enquanto Check mostrou o menor rendimento média, como esperado. Esses resultados fornecem insights iniciais sobre o desempenho dos produtos testados, mas análises mais detalhadas, incluindo testes estatísticos específicos para comparações entre os produtos, podem oferecer uma compreensão mais robusta das diferenças observadas.
+Observamos uma variação no rendimento entre os diferentes produtos testados (Check, Bio agent B, Fungicide, Bio agent A). O produto Fungicide parece apresentar um rendimento médio mais alto em comparação aos demais, enquanto Check mostrou o menor rendimento médio, como esperado. Esses resultados fornecem insights iniciais sobre o desempenho dos produtos testados, mas análises mais detalhadas, incluindo testes estatísticos específicos para comparações entre os produtos, podem oferecer uma compreensão mais robusta das diferenças observadas.
