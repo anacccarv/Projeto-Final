@@ -424,7 +424,7 @@ Estes resultados sugerem que "Fungicide" e "Bio agent A" são mais eficazes na r
 
 ## ANOVA
 
-Uma análise de variância (ANOVA) foi realizada para investigar a influência dos produtos e isolados na produtividade final do cultivo aos 28 dias.
+Uma análise de variância (ANOVA) foi realizada para investigar a influência dos produtos e isolados no rendimento final do cultivo aos 28 dias.
 
 ```{r}
 anova28 <- lm(yield_f ~ product*isolate,
@@ -463,13 +463,13 @@ cld(medias_tom28, Letters = LETTERS)
 
 Os resultados indicam que há uma diferença significativa entre os produtos Check, Bio agent B e Fungicide, enquanto o Bio agent A se encontra dentro dos grupos B e C.
 
-# Análise de correlação: Severidade x Produtividade
+# Análise de correlação: Severidade x Rendimento
 
 ## Visualização da Correlação
 
 ### Gráfico de Dispersão com Regressão Linear
 
-Primeiro, apresentamos um gráfico de dispersão mostrando a relação entre a severidade da doença e a produtividade final, com uma linha de regressão linear ajustada:
+Primeiro, apresentamos um gráfico de dispersão mostrando a relação entre a severidade da doença e o rendimento final, com uma linha de regressão linear ajustada:
 
 ```{r}
 tom28 |> 
@@ -477,13 +477,13 @@ tom28 |>
   geom_point()+
   geom_smooth(method = "lm")+
   labs(x = "Severidade",
-       y = "Rendimento final")+
+       y = "Rendimento final (%)")+
   theme_clean()
 ```
 
 ### Gráfico de Dispersão com Regressão Linear por Produto
 
-Para entender melhor a correlação entre severidade e produtividade para cada produto, geramos gráficos de dispersão com linhas de regressão linear separadas por produto:
+Para entender melhor a correlação entre severidade e rendimento para cada produto, geramos gráficos de dispersão com linhas de regressão linear separadas por produto:
 
 ```{r}
 tom28 |> 
@@ -491,7 +491,7 @@ tom28 |>
   geom_point()+
   geom_smooth(method = "lm")+
   labs(x = "Severidade",
-       y = "Rendimento final")+
+       y = "Rendimento final (%)")+
   facet_wrap(~product)+
   theme_clean()
 ```
@@ -503,7 +503,7 @@ tom28 |>
   ggplot(aes(product, yield_f, color = product))+
   geom_boxplot()+
   labs(x = "Produto",
-       y = "Rendimento final",
+       y = "Rendimento final (%)",
        color = "Produto")+
   theme_clean()+
   theme(legend.position = "top")

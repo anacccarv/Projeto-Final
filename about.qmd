@@ -145,7 +145,7 @@ A partir da análise exploratória dos dados, observamos variações na severida
 
 ## Filtragem dos dados
 
-Os dados foram filtrados para incluir apenas informações do dia 28, considerando a produtividade final dos tomates.
+Os dados foram filtrados para incluir apenas informações do dia 28, considerando o rendimento final dos tomates.
 
 ```{r}
 tomate2 <- tomate |> 
@@ -162,13 +162,13 @@ tomate2 |>
   geom_boxplot()+
   scale_x_discrete(limits = c("Check", "Bio agent B", "Fungicide", "Bio agent A"))+
   labs(x = "Produto",
-       y = "Rendimento (kg/ha)",
+       y = "Rendimento (%)",
        color = "Isolado" )+
   theme_classic()+
   theme(legend.position = "top")
 ```
 
-Para um resumo visual da produtividade média por produto:
+Para um resumo visual do rendimento médio por produto:
 
 ```{r}
 tomate2 |>
@@ -182,7 +182,7 @@ tomate2 |>
                 width = 0.1) +
   theme_classic() +
   labs( x = "Produto",
-       y = "Rendimento (kg/ha)",
+       y = "Rendimento (%)",
        color = "Isolado")+
    scale_x_discrete(limits = c("Check", "Bio agent B", "Fungicide", "Bio agent A"))+
  theme(legend.position = "top")
