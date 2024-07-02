@@ -141,7 +141,7 @@ tomate |>
 
 A partir da análise exploratória dos dados, observamos variações na severidade da doença entre os diferentes produtos ao longo do tempo. No entanto, não foram observadas diferenças significativas visualmente na severidade da doença entre os isolados do patógeno. Essas visualizações fornecem insights iniciais sobre a eficácia dos produtos testados, os quais serão explorados em análises mais detalhadas subsequentes quanto à sua interação com os isolados do patógeno.
 
-# Produtividade
+# Rendimento
 
 ## Filtragem dos dados
 
@@ -154,7 +154,7 @@ tomate2 <- tomate |>
 
 ## Visualização dos dados
 
-Para visualizar a produtividade com os diferentes produtos utilizados:
+Para visualizar o rendimento com os diferentes produtos utilizados:
 
 ```{r}
 tomate2 |> 
@@ -162,7 +162,7 @@ tomate2 |>
   geom_boxplot()+
   scale_x_discrete(limits = c("Check", "Bio agent B", "Fungicide", "Bio agent A"))+
   labs(x = "Produto",
-       y = "Produtividade (kg/ha)",
+       y = "Rendimento (kg/ha)",
        color = "Isolado" )+
   theme_classic()+
   theme(legend.position = "top")
@@ -182,10 +182,10 @@ tomate2 |>
                 width = 0.1) +
   theme_classic() +
   labs( x = "Produto",
-       y = "Produtividade (kg/ha)",
+       y = "Rendimento (kg/ha)",
        color = "Isolado")+
    scale_x_discrete(limits = c("Check", "Bio agent B", "Fungicide", "Bio agent A"))+
  theme(legend.position = "top")
 ```
 
-Observamos uma variação na produtividade entre os diferentes produtos testados (Check, Bio agent B, Fungicide, Bio agent A). O produto Fungicide parece apresentar uma produtividade média mais alta em comparação aos demais, enquanto Check mostrou a menor produtividade média, como esperado. Esses resultados fornecem insights iniciais sobre o desempenho dos produtos testados, mas análises mais detalhadas, incluindo testes estatísticos específicos para comparações entre os produtos, podem oferecer uma compreensão mais robusta das diferenças observadas.
+Observamos uma variação no rendimento entre os diferentes produtos testados (Check, Bio agent B, Fungicide, Bio agent A). O produto Fungicide parece apresentar um rendimento médio mais alta em comparação aos demais, enquanto Check mostrou o menor rendimento média, como esperado. Esses resultados fornecem insights iniciais sobre o desempenho dos produtos testados, mas análises mais detalhadas, incluindo testes estatísticos específicos para comparações entre os produtos, podem oferecer uma compreensão mais robusta das diferenças observadas.

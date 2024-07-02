@@ -1,5 +1,5 @@
 ---
-title: "estatistica"
+title: "Estatística Inferencial"
 ---
 
 # Bibliotecas
@@ -420,7 +420,7 @@ cld(medias_tomate3, Letters = letters)
 
 Estes resultados sugerem que "Fungicide" e "Bio agent A" são mais eficazes na redução da severidade da doença em comparação ao "Check" e "Bio agent B".
 
-# Variável: Produtividade
+# Variável: Rendimento
 
 ## ANOVA
 
@@ -477,9 +477,10 @@ tom28 |>
   geom_point()+
   geom_smooth(method = "lm")+
   labs(x = "Severidade",
-       y = "Produtividade final")+
+       y = "Rendimento final")+
   theme_clean()
 ```
+
 ### Gráfico de Dispersão com Regressão Linear por Produto
 
 Para entender melhor a correlação entre severidade e produtividade para cada produto, geramos gráficos de dispersão com linhas de regressão linear separadas por produto:
@@ -490,19 +491,19 @@ tom28 |>
   geom_point()+
   geom_smooth(method = "lm")+
   labs(x = "Severidade",
-       y = "Produtividade final")+
+       y = "Rendimento final")+
   facet_wrap(~product)+
   theme_clean()
 ```
 
-### Boxplot de Produtividade por Produto
+### Boxplot do Rendimento por Produto
 
 ```{r}
 tom28 |> 
   ggplot(aes(product, yield_f, color = product))+
   geom_boxplot()+
   labs(x = "Produto",
-       y = "Produtividade final",
+       y = "Rendimento final",
        color = "Produto")+
   theme_clean()+
   theme(legend.position = "top")

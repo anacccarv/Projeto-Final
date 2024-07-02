@@ -185,7 +185,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#resumo-dos-dados-agrupados-por-produto-e-tempo" id="toc-resumo-dos-dados-agrupados-por-produto-e-tempo" class="nav-link" data-scroll-target="#resumo-dos-dados-agrupados-por-produto-e-tempo">Resumo dos Dados Agrupados por Produto e Tempo</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#produtividade" id="toc-produtividade" class="nav-link" data-scroll-target="#produtividade">Produtividade</a>
+  <li><a href="#rendimento" id="toc-rendimento" class="nav-link" data-scroll-target="#rendimento">Rendimento</a>
   <ul class="collapse">
   <li><a href="#filtragem-dos-dados-1" id="toc-filtragem-dos-dados-1" class="nav-link" data-scroll-target="#filtragem-dos-dados-1">Filtragem dos dados</a></li>
   <li><a href="#visualização-dos-dados" id="toc-visualização-dos-dados" class="nav-link" data-scroll-target="#visualização-dos-dados">Visualização dos dados</a></li>
@@ -406,8 +406,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 </section>
 </section>
-<section id="produtividade" class="level1">
-<h1>Produtividade</h1>
+<section id="rendimento" class="level1">
+<h1>Rendimento</h1>
 <section id="filtragem-dos-dados-1" class="level2">
 <h2 class="anchored" data-anchor-id="filtragem-dos-dados-1">Filtragem dos dados</h2>
 <p>Os dados foram filtrados para incluir apenas informações do dia 28, considerando a produtividade final dos tomates.</p>
@@ -418,14 +418,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="visualização-dos-dados" class="level2">
 <h2 class="anchored" data-anchor-id="visualização-dos-dados">Visualização dos dados</h2>
-<p>Para visualizar a produtividade com os diferentes produtos utilizados:</p>
+<p>Para visualizar o rendimento com os diferentes produtos utilizados:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>tomate2 <span class="sc">|&gt;</span> </span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(product, yield_f, <span class="at">color =</span> product))<span class="sc">+</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()<span class="sc">+</span></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="st">"Check"</span>, <span class="st">"Bio agent B"</span>, <span class="st">"Fungicide"</span>, <span class="st">"Bio agent A"</span>))<span class="sc">+</span></span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Produto"</span>,</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Produtividade (kg/ha)"</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Rendimento (kg/ha)"</span>,</span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Isolado"</span> )<span class="sc">+</span></span>
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -450,7 +450,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
 <span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
 <span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>( <span class="at">x =</span> <span class="st">"Produto"</span>,</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Produtividade (kg/ha)"</span>,</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Rendimento (kg/ha)"</span>,</span>
 <span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Isolado"</span>)<span class="sc">+</span></span>
 <span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>   <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="st">"Check"</span>, <span class="st">"Bio agent B"</span>, <span class="st">"Fungicide"</span>, <span class="st">"Bio agent A"</span>))<span class="sc">+</span></span>
 <span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -462,7 +462,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Observamos uma variação na produtividade entre os diferentes produtos testados (Check, Bio agent B, Fungicide, Bio agent A). O produto Fungicide parece apresentar uma produtividade média mais alta em comparação aos demais, enquanto Check mostrou a menor produtividade média, como esperado. Esses resultados fornecem insights iniciais sobre o desempenho dos produtos testados, mas análises mais detalhadas, incluindo testes estatísticos específicos para comparações entre os produtos, podem oferecer uma compreensão mais robusta das diferenças observadas.</p>
+<p>Observamos uma variação no rendimento entre os diferentes produtos testados (Check, Bio agent B, Fungicide, Bio agent A). O produto Fungicide parece apresentar um rendimento médio mais alta em comparação aos demais, enquanto Check mostrou o menor rendimento média, como esperado. Esses resultados fornecem insights iniciais sobre o desempenho dos produtos testados, mas análises mais detalhadas, incluindo testes estatísticos específicos para comparações entre os produtos, podem oferecer uma compreensão mais robusta das diferenças observadas.</p>
 
 
 </section>
