@@ -181,7 +181,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#transformação-logarítmica" id="toc-transformação-logarítmica" class="nav-link" data-scroll-target="#transformação-logarítmica">Transformação Logarítmica</a></li>
   <li><a href="#transformação-logit" id="toc-transformação-logit" class="nav-link" data-scroll-target="#transformação-logit">Transformação Logit</a></li>
   </ul></li>
-  <li><a href="#teste-de-comparação-de-médias" id="toc-teste-de-comparação-de-médias" class="nav-link" data-scroll-target="#teste-de-comparação-de-médias">Teste de comparação de médias</a></li>
+  <li><a href="#teste-de-comparação-de-médias-tukey" id="toc-teste-de-comparação-de-médias-tukey" class="nav-link" data-scroll-target="#teste-de-comparação-de-médias-tukey">Teste de comparação de médias (Tukey)</a></li>
   <li><a href="#regressão-linear" id="toc-regressão-linear" class="nav-link" data-scroll-target="#regressão-linear">Regressão linear</a>
   <ul class="collapse">
   <li><a href="#visualização-dos-dados" id="toc-visualização-dos-dados" class="nav-link" data-scroll-target="#visualização-dos-dados">Visualização dos dados</a></li>
@@ -190,7 +190,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#bio-agente-a" id="toc-bio-agente-a" class="nav-link" data-scroll-target="#bio-agente-a">Bio agente A</a></li>
   <li><a href="#bio-agente-b" id="toc-bio-agente-b" class="nav-link" data-scroll-target="#bio-agente-b">Bio agente B</a></li>
   </ul></li>
-  <li><a href="#regressao-linear-quadrática-por-tratamento" id="toc-regressao-linear-quadrática-por-tratamento" class="nav-link" data-scroll-target="#regressao-linear-quadrática-por-tratamento">Regressao linear quadrática por tratamento</a>
+  <li><a href="#regressão-quadrática-por-tratamento" id="toc-regressão-quadrática-por-tratamento" class="nav-link" data-scroll-target="#regressão-quadrática-por-tratamento">Regressão quadrática por tratamento</a>
   <ul class="collapse">
   <li><a href="#check-1" id="toc-check-1" class="nav-link" data-scroll-target="#check-1">Check</a></li>
   <li><a href="#fungicida-1" id="toc-fungicida-1" class="nav-link" data-scroll-target="#fungicida-1">Fungicida</a></li>
@@ -204,7 +204,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#anova-1" id="toc-anova-1" class="nav-link" data-scroll-target="#anova-1">ANOVA</a></li>
   <li><a href="#verificação-das-premissas-1" id="toc-verificação-das-premissas-1" class="nav-link" data-scroll-target="#verificação-das-premissas-1">Verificação das Premissas</a></li>
-  <li><a href="#teste-de-comparação-de-médias-1" id="toc-teste-de-comparação-de-médias-1" class="nav-link" data-scroll-target="#teste-de-comparação-de-médias-1">Teste de comparação de médias</a></li>
+  <li><a href="#teste-de-comparação-de-médias-tukey-1" id="toc-teste-de-comparação-de-médias-tukey-1" class="nav-link" data-scroll-target="#teste-de-comparação-de-médias-tukey-1">Teste de comparação de médias (Tukey)</a></li>
   </ul></li>
   <li><a href="#análise-de-correlação-severidade-x-rendimento" id="toc-análise-de-correlação-severidade-x-rendimento" class="nav-link" data-scroll-target="#análise-de-correlação-severidade-x-rendimento">Análise de correlação: Severidade x Rendimento</a>
   <ul class="collapse">
@@ -212,7 +212,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#gráfico-de-dispersão-com-regressão-linear" id="toc-gráfico-de-dispersão-com-regressão-linear" class="nav-link" data-scroll-target="#gráfico-de-dispersão-com-regressão-linear">Gráfico de Dispersão com Regressão Linear</a></li>
   <li><a href="#gráfico-de-dispersão-com-regressão-linear-por-produto" id="toc-gráfico-de-dispersão-com-regressão-linear-por-produto" class="nav-link" data-scroll-target="#gráfico-de-dispersão-com-regressão-linear-por-produto">Gráfico de Dispersão com Regressão Linear por Produto</a></li>
-  <li><a href="#boxplot-do-rendimento-por-produto" id="toc-boxplot-do-rendimento-por-produto" class="nav-link" data-scroll-target="#boxplot-do-rendimento-por-produto">Boxplot do Rendimento por Produto</a></li>
   </ul></li>
   <li><a href="#análise-de-correlação" id="toc-análise-de-correlação" class="nav-link" data-scroll-target="#análise-de-correlação">Análise de Correlação</a>
   <ul class="collapse">
@@ -446,8 +445,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>Apesar das transformações, as premissas ainda não foram completamente atendidas. Contudo, utilizando o pacote DHARMa, as premissas foram consideradas aceitáveis para continuar a análise.</p>
 </section>
 </section>
-<section id="teste-de-comparação-de-médias" class="level2">
-<h2 class="anchored" data-anchor-id="teste-de-comparação-de-médias">Teste de comparação de médias</h2>
+<section id="teste-de-comparação-de-médias-tukey" class="level2">
+<h2 class="anchored" data-anchor-id="teste-de-comparação-de-médias-tukey">Teste de comparação de médias (Tukey)</h2>
 <p>Dado que o isolado não foi significativo e a interação entre isolado e produto também não, foi realizado um teste de comparação de médias apenas para o produto:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># emmeans</span></span>
@@ -715,8 +714,8 @@ F-statistic: 548.5 on 1 and 238 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </section>
 </section>
-<section id="regressao-linear-quadrática-por-tratamento" class="level2">
-<h2 class="anchored" data-anchor-id="regressao-linear-quadrática-por-tratamento">Regressao linear quadrática por tratamento</h2>
+<section id="regressão-quadrática-por-tratamento" class="level2">
+<h2 class="anchored" data-anchor-id="regressão-quadrática-por-tratamento">Regressão quadrática por tratamento</h2>
 <p>Para investigar possíveis efeitos não-lineares ao longo do tempo, foram ajustados modelos de regressão linear quadrática para cada tratamento:</p>
 <section id="check-1" class="level3">
 <h3 class="anchored" data-anchor-id="check-1">Check</h3>
@@ -1011,6 +1010,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 <p>Os resultados indicam que há uma diferença estatisticamente significativa na AACPD entre os diferentes produtos (p &lt; 0.001).</p>
+<p>Teste de comparação de médias (Tukey):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>medias_tomate3 <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(m_tomate3, <span class="sc">~</span> product)</span>
 <span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cld</span>(medias_tomate3, <span class="at">Letters =</span> letters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1090,8 +1090,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <p>As premissas foram atendidas, indicando que não é necessário transformar os dados.</p>
 </section>
-<section id="teste-de-comparação-de-médias-1" class="level2">
-<h2 class="anchored" data-anchor-id="teste-de-comparação-de-médias-1">Teste de comparação de médias</h2>
+<section id="teste-de-comparação-de-médias-tukey-1" class="level2">
+<h2 class="anchored" data-anchor-id="teste-de-comparação-de-médias-tukey-1">Teste de comparação de médias (Tukey)</h2>
 <p>Como o fator “product” foi identificado como significativo, realizamos um teste de comparação de médias para determinar os níveis de “product” que são significativamente diferentes entre si.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="co"># emmeans</span></span>
@@ -1173,41 +1173,20 @@ NOTE: If two or more means share the same grouping symbol,
 </div>
 </div>
 </section>
-<section id="boxplot-do-rendimento-por-produto" class="level3">
-<h3 class="anchored" data-anchor-id="boxplot-do-rendimento-por-produto">Boxplot do Rendimento por Produto</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>tom28 <span class="sc">|&gt;</span> </span>
-<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(product, yield_f, <span class="at">color =</span> product))<span class="sc">+</span></span>
-<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()<span class="sc">+</span></span>
-<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Produto"</span>,</span>
-<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Rendimento final (%)"</span>,</span>
-<span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Produto"</span>)<span class="sc">+</span></span>
-<span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_clean</span>()<span class="sc">+</span></span>
-<span id="cb94-8"><a href="#cb94-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="estatistica_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>A visualização inicial com o gráfico de dispersão sugere a presença de uma correlação.</p>
-</section>
 </section>
 <section id="análise-de-correlação" class="level2">
 <h2 class="anchored" data-anchor-id="análise-de-correlação">Análise de Correlação</h2>
 <section id="seleção-das-variáveis-de-interesse" class="level3">
 <h3 class="anchored" data-anchor-id="seleção-das-variáveis-de-interesse">Seleção das Variáveis de Interesse</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a>tom28_2 <span class="ot">&lt;-</span> tom28 <span class="sc">|&gt;</span> </span>
-<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(sev, yield_f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>tom28_2 <span class="ot">&lt;-</span> tom28 <span class="sc">|&gt;</span> </span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(sev, yield_f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="gráfico-de-correlação" class="level3">
 <h3 class="anchored" data-anchor-id="gráfico-de-correlação">Gráfico de Correlação</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">corgraph</span>(tom28_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">corgraph</span>(tom28_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     Var1 Var2        cor            p
 2 yield_f  sev -0.7914031 5.522227e-27</code></pre>
@@ -1215,7 +1194,7 @@ NOTE: If two or more means share the same grouping symbol,
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="estatistica_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="estatistica_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1224,7 +1203,7 @@ NOTE: If two or more means share the same grouping symbol,
 <section id="teste-de-correlação" class="level3">
 <h3 class="anchored" data-anchor-id="teste-de-correlação">Teste de Correlação</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(tom28_2<span class="sc">$</span>yield_f, tom28_2<span class="sc">$</span>sev)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(tom28_2<span class="sc">$</span>yield_f, tom28_2<span class="sc">$</span>sev)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's product-moment correlation
@@ -1246,12 +1225,12 @@ sample estimates:
 <section id="produto-check" class="level3">
 <h3 class="anchored" data-anchor-id="produto-check">Produto: Check</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>tom28_check <span class="ot">&lt;-</span> tom28 <span class="sc">|&gt;</span> </span>
-<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(product <span class="sc">==</span> <span class="st">"Check"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(sev, yield_f)</span>
-<span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb100-5"><a href="#cb100-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico de correlação para Check</span></span>
-<span id="cb100-6"><a href="#cb100-6" aria-hidden="true" tabindex="-1"></a><span class="fu">corgraph</span>(tom28_check)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>tom28_check <span class="ot">&lt;-</span> tom28 <span class="sc">|&gt;</span> </span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(product <span class="sc">==</span> <span class="st">"Check"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(sev, yield_f)</span>
+<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb99-5"><a href="#cb99-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico de correlação para Check</span></span>
+<span id="cb99-6"><a href="#cb99-6" aria-hidden="true" tabindex="-1"></a><span class="fu">corgraph</span>(tom28_check)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     Var1 Var2        cor            p
 2 yield_f  sev -0.6272179 0.0002077558</code></pre>
@@ -1259,12 +1238,12 @@ sample estimates:
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="estatistica_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="estatistica_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Teste de correlação para Check</span></span>
-<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(tom28_check<span class="sc">$</span>yield_f, tom28_check<span class="sc">$</span>sev)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Teste de correlação para Check</span></span>
+<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(tom28_check<span class="sc">$</span>yield_f, tom28_check<span class="sc">$</span>sev)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's product-moment correlation
@@ -1283,12 +1262,12 @@ sample estimates:
 <section id="produto-bio-agent-a" class="level3">
 <h3 class="anchored" data-anchor-id="produto-bio-agent-a">Produto: Bio agent A</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a>tom28_bioA <span class="ot">&lt;-</span> tom28 <span class="sc">|&gt;</span> </span>
-<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(product <span class="sc">==</span> <span class="st">"Bio agent A"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb104-3"><a href="#cb104-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(sev, yield_f)</span>
-<span id="cb104-4"><a href="#cb104-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb104-5"><a href="#cb104-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico de correlação para Bio agent A</span></span>
-<span id="cb104-6"><a href="#cb104-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">corgraph</span>(tom28_bioA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a>tom28_bioA <span class="ot">&lt;-</span> tom28 <span class="sc">|&gt;</span> </span>
+<span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(product <span class="sc">==</span> <span class="st">"Bio agent A"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb103-3"><a href="#cb103-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(sev, yield_f)</span>
+<span id="cb103-4"><a href="#cb103-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-5"><a href="#cb103-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico de correlação para Bio agent A</span></span>
+<span id="cb103-6"><a href="#cb103-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">corgraph</span>(tom28_bioA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     Var1 Var2        cor         p
 2 yield_f  sev -0.1498767 0.4292317</code></pre>
@@ -1296,12 +1275,12 @@ sample estimates:
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="estatistica_files/figure-html/unnamed-chunk-41-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="estatistica_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Teste de correlação para Bio agent A</span></span>
-<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(tom28_bioA<span class="sc">$</span>yield_f, tom28_bioA<span class="sc">$</span>sev)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Teste de correlação para Bio agent A</span></span>
+<span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(tom28_bioA<span class="sc">$</span>yield_f, tom28_bioA<span class="sc">$</span>sev)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's product-moment correlation
