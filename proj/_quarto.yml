@@ -1,0 +1,43 @@
+project:
+  type: website
+  output-dir: docs
+  
+execute: 
+  cache: true
+  freeze: auto
+  warning: false
+  
+website:
+  title: "Projeto Final"
+  favicon: img.png
+  
+  navbar:
+    pinned: true
+    logo: icon.png
+    search: true
+    
+    left:
+    - text: Sobre
+      icon: house
+      href: index.qmd
+    - text: Obtenção dos dados
+      icon: clipboard
+      href: sobre_dados.qmd
+    - text: Análise
+      icon: file-code
+      menu:
+        - href: about.qmd
+          text: Análise Exploratória
+        - href: estatistica.qmd
+          text: Análise Inferencial
+          
+format:
+  html:
+    theme: 
+      light: flatly
+      dark: superhero
+    css: styles.css
+    toc: true
+
+editor: visual
+

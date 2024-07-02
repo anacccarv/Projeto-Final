@@ -1,0 +1,193 @@
+---
+title: "Pré-visualização"
+---
+
+# Bibliotecas
+
+As bibliotecas listadas abaixo foram carregadas para a análise dos dados:
+
+```{r}
+library(gsheet)
+library(tidyverse)
+library(ggthemes)
+```
+
+# Importação dos dados
+
+Os dados foram importados a partir de uma planilha do Google Sheets utilizando a função gsheet2tbl da biblioteca gsheet ([link para a planilha](https://docs.google.com/spreadsheets/d/1HI1PqYYMyvwvLhMfAAs7eyA2zCqTBwQdyGtw-ILn7fU/edit?usp=sharing)).
+
+```{r}
+dados <- gsheet2tbl("https://docs.google.com/spreadsheets/d/1HI1PqYYMyvwvLhMfAAs7eyA2zCqTBwQdyGtw-ILn7fU/edit?usp=sharing")
+dados
+```
+
+# Filtragem dos dados
+
+Para focar a análise em um subconjunto específico dos dados, foi realizada a filtragem dos mesmos. Os critérios de filtragem incluem:
+
+-   O host deve ser "Tomato".
+
+-   A espécie do patógeno deve ser "*A. solani*".
+
+Além disso, foram realizadas algumas transformações e seleções de colunas relevantes.
+
+```{r}
+tomate <- dados |> 
+  filter(host == "Tomato",
+         specie == "A. solani") |> 
+  mutate(time = as.numeric(time),
+         rep = as.factor(rep),
+         product = as.factor(product),
+         sev = as.numeric(sev),
+         yield_f = as.numeric(yield_f))|> 
+  dplyr::select(ID, isolate, product, rep, time, sev, yield_f)
+```
+
+Este conjunto de dados será utilizado para as análises subsequentes.
+
+# Análise exploratória dos dados
+
+# Severidade
+
+## Gráficos de Dispersão e Resumo Estatístico
+
+### Severidade da Doença por Produto e Isolado
+
+Foi criado um gráfico de dispersão para visualizar a relação entre a severidade da doença, os produtos utilizados e os isolados do patógeno. As observações são distribuídas de acordo com os diferentes produtos e isolados. O eixo y foi formatado para exibir os valores em porcentagem:
+
+```{r}
+tomate |> 
+ggplot(aes(product, sev, color = isolate))+
+  geom_jitter()+
+  facet_wrap(~isolate)+
+  scale_x_discrete(limits = c("Check", "Bio agent B", "Fungicide", "Bio agent A"))+
+  scale_y_continuous(labels = scales::percent)+
+  labs(x = "Produto",
+       y = "Severidade (%)",
+       color = "Isolado" )+
+  theme_clean()
+```
+
+### Severidade da Doença por Produto e Isolado
+
+Um segundo gráfico de dispersão foi criado para visualizar a relação entre a severidade da doença, os isolados e os produtos, com as observações faceteadas pelo tempo:
+
+```{r}
+tomate |> 
+ggplot(aes(isolate, sev, color = product))+
+  geom_jitter()+
+  facet_wrap(~time, ncol = 2)+
+  scale_y_continuous(labels = scales::percent)+
+    labs(x = "Isolados",
+    y = "Severidade (%)",
+    color = "Produto" )+
+  theme_clean()
+```
+
+### Evolução da Severidade ao Longo do Tempo
+
+Para observar a evolução da severidade da doença ao longo do tempo, foi criado um gráfico de pontos com uma linha de suavização para visualizar a tendência geral da severidade da doença. , além de pontos médios representando a média da severidade em cada período de avaliação. As barras de erro são utilizadas para indicar a variabilidade, representando o desvio padrão da severidade para cada ponto médio:
+
+```{r}
+tomate |> 
+  ggplot(aes(time, sev, color = product)) +
+  geom_smooth(se = FALSE) +  
+  stat_summary(
+    geom = "point",
+    fun = mean,  
+    size = 3,  
+    shape = 21,  
+    fill = "white" 
+  ) +
+  stat_summary(
+    geom = "errorbar",  
+    fun.data = mean_se,  
+    width = 0.2  
+  ) +
+  labs(
+    x = "Tempo",
+    y = "Severidade (%)",
+    color = "Produto"
+  ) +
+    scale_y_continuous(labels = scales::percent)+
+  theme_clean()
+  
+```
+
+### Resumo dos Dados Agrupados por Produto e Tempo
+
+Os dados foram agrupados por produto e tempo, e a média da severidade da doença foi calculada para cada grupo. Este resumo foi então plotado para visualizar a evolução da severidade ao longo do tempo para cada produto:
+
+```{r}
+tomate |>
+  group_by(product, time) |>
+  summarise(media = mean(sev),
+            sd = sd(sev))
+
+tomate |>
+  group_by(product, time) |> 
+  summarise(sev_mean = mean(sev),
+            sev_se = sd(sev)) |>
+  ggplot(aes(product, sev_mean, color = product)) +
+  geom_point(size = 3) +
+  geom_errorbar(aes(ymin = sev_mean - sev_se,
+                    ymax = sev_mean + sev_se),
+                width = 0.1) +
+  theme_classic() +
+  labs( x = "Tempo",
+        y = "Severidade (%)",
+        color = "Produto")+
+  facet_wrap(~time, ncol = 2)+
+ theme(legend.position = "top")
+```
+
+A partir da análise exploratória dos dados, observamos variações na severidade da doença entre os diferentes produtos ao longo do tempo. No entanto, não foram observadas diferenças significativas visualmente na severidade da doença entre os isolados do patógeno. Essas visualizações fornecem insights iniciais sobre a eficácia dos produtos testados, os quais serão explorados em análises mais detalhadas subsequentes quanto à sua interação com os isolados do patógeno.
+
+# Rendimento
+
+## Filtragem dos dados
+
+Os dados foram filtrados para incluir apenas informações do dia 28, considerando o rendimento final dos tomates.
+
+```{r}
+tomate2 <- tomate |> 
+  filter(time == 28)
+```
+
+## Visualização dos dados
+
+Para visualizar o rendimento com os diferentes produtos utilizados:
+
+```{r}
+tomate2 |> 
+  ggplot(aes(product, yield_f, color = product))+
+  geom_boxplot()+
+  scale_x_discrete(limits = c("Check", "Bio agent B", "Fungicide", "Bio agent A"))+
+  labs(x = "Produto",
+       y = "Rendimento (%)",
+       color = "Isolado" )+
+  theme_classic()+
+  theme(legend.position = "top")
+```
+
+Para um resumo visual do rendimento médio por produto:
+
+```{r}
+tomate2 |>
+  group_by(product, time) |> 
+  summarise(yld_mean = mean(yield_f),
+            yld_se = sd(yield_f)) |>
+  ggplot(aes(product, yld_mean, color = product)) +
+  geom_point(size = 3) +
+  geom_errorbar(aes(ymin = yld_mean - yld_se,
+                    ymax = yld_mean + yld_se),
+                width = 0.1) +
+  theme_classic() +
+  labs( x = "Produto",
+       y = "Rendimento (%)",
+       color = "Isolado")+
+   scale_x_discrete(limits = c("Check", "Bio agent B", "Fungicide", "Bio agent A"))+
+ theme(legend.position = "top")
+```
+
+Observamos uma variação no rendimento entre os diferentes produtos testados (Check, Bio agent B, Fungicide, Bio agent A). O produto Fungicide parece apresentar um rendimento médio mais alta em comparação aos demais, enquanto Check mostrou o menor rendimento média, como esperado. Esses resultados fornecem insights iniciais sobre o desempenho dos produtos testados, mas análises mais detalhadas, incluindo testes estatísticos específicos para comparações entre os produtos, podem oferecer uma compreensão mais robusta das diferenças observadas.
